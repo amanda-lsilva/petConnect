@@ -1,24 +1,24 @@
 swagger: "2.0"
 info:
-  description: "Serviço de Prestadores"
+  description: "Serviço de Cadastro de Prestadores"
   version: "1.0.0"
-  title: "Serviço de Prestadores"
+  title: "Serviço de Cadastro de Prestadores"
   termsOfService: "http://swagger.io/terms/"
   contact:
-    email: "apiteam@swagger.io"
+    email: "petconnect@gmail.com"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "igti.com.br"
+host: "petconnect.com.br"
 basePath: "/v1"
 tags:
-- name: "prestadores"
+- name: "prestador"
   description: "Gerenciamento de Prestadores"
 schemes:
 - "https"
 - "http"
 paths:
-  /prestadores:
+  /prestador:
     post:
       tags:
       - "prestador"
@@ -77,9 +77,55 @@ paths:
           schema:
             $ref: "#/definitions/Prestador"
         "400":
-          description: "Invalid ID supplied"
+          description: "CNPJ inválido"
         "404":
-          description: "Prestador de serviço não encontrado"      
+          description: "Prestador de serviço não encontrado"
+    put:
+      tags:
+      - "prestador"
+      summary: "Altera o cadastro de um prestador existente"
+      description: ""
+      operationId: "updatePrestador"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "cnpj"
+        in: "path"
+        description: "CNPJ do prestador a ser alterado no sistema"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Atualização do prestador"
+        required: true
+        schema:
+          $ref: "#/definitions/Prestador"
+      responses:
+        "400":
+          description: "CNPJ inválido"
+        "404":
+          description: "Prestador não encontrado"
+    delete:
+      tags:
+      - "prestador"
+      summary: "Exclui um prestador"
+      description: ""
+      operationId: "deletePrestador"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "cnpj"
+        in: "path"
+        description: "CNPJ do prestador para excluir"
+        required: true
+        type: "string"
+      responses:
+        "400":
+          description: "CNPJ inválido"
+        "404":
+          description: "Prestador não encontrado"
 definitions:
   Prestador:
     type: "object"
@@ -91,12 +137,24 @@ definitions:
         type: "string"
       tipo:
         type: "string"
+        description: "Tipo de Prestador"
+        enum:
+        - "veterinario"
+        - "pet shop"
       nome:
+        type: "string"
+      email:
+        type: "string"
+      usuario:
+        type: "string"
+      senha:
         type: "string"
       endereco:
         $ref: "#/definitions/Endereco"
       contato:
         $ref: "#/definitions/Contato"
+    xml:
+      name: "Prestador"
   Endereco:
     type: "object"
     properties:
@@ -113,6 +171,8 @@ definitions:
         type: "string"
       uf:
         type: "string"
+    xml:
+      name: "Endereco"
   Contato:
     type: "object"
     properties:
@@ -121,5 +181,5 @@ definitions:
         format: "int64"
       telefone:
         type: "string"
-      email:
-        type: "string"
+    xml:
+      name: "Contato"
