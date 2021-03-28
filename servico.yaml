@@ -13,7 +13,7 @@ host: "petconnect.com.br"
 basePath: "/v1"
 tags:
 - name: "servico"
-  description: "Gerenciamento de   Serviços"
+  description: "Gerenciamento de Serviços"
 schemes:
 - "https"
 - "http"
