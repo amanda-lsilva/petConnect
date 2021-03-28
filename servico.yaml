@@ -55,30 +55,29 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/Servico"
-  /servico/{Id}:
+  /servico/{descricao}:
     get:
       tags:
       - "servico"
-      summary: "Encontra um serviço pelo Id"
+      summary: "Encontra um serviço pela descrição"
       description: ""
-      operationId: "getServicoById"
+      operationId: "getServicoBydDescricao"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "Id"
+      - name: "descricao"
         in: "path"
-        description: "ID do serviço para retornar"
+        description: "Descrição do serviço para retornar"
         required: true
-        type: "integer"
-        format: "int64"
+        type: "string"
       responses:
         "200":
           description: "Operação realizada com sucesso."
           schema:
             $ref: "#/definitions/Servico"
         "400":
-          description: "Id inválido"
+          description: "Descrição inválida"
         "404":
           description: "Serviço não encontrado"
     put:
@@ -91,7 +90,7 @@ paths:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "Id"
+      - name: "descricao"
         in: "path"
         description: "Serviço a ser alterado no sistema"
         required: true
@@ -104,7 +103,7 @@ paths:
           $ref: "#/definitions/Servico"
       responses:
         "400":
-          description: "Id inválido"
+          description: "Descrição inválida"
         "404":
           description: "Serviço não encontrado"
     delete:
@@ -117,15 +116,14 @@ paths:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "Id"
+      - name: "descricao"
         in: "path"
-        description: "Id do serviço para excluir"
+        description: "Descrição do serviço para excluir"
         required: true
-        type: "integer"
-        format: "int64"
+        type: "string"
       responses:
         "400":
-          description: "Id não encontrado"
+          description: "Descrição inválida"
         "404":
           description: "Serviço não encontrado"
 definitions:
@@ -154,4 +152,3 @@ definitions:
         type: "string"
     xml:
       name: "Servico"
-     
